@@ -1,0 +1,11 @@
+---
+- name: Installing and Creating LAMP stack docker conatainer
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: Update repository index
+    apt:
+      update_cache: yes
+
+  roles:
+  - ubuntu/LAMP/container

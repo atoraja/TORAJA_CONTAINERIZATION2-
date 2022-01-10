@@ -1,0 +1,24 @@
+---
+# tasks file for roles/ubuntu/LAMP/installation
+
+# Start the service of DOCKER <START>
+- name: Start Docker Service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+# Start the service of DOCKER <END>
+
+# Pulling LAMP stack
+- name: Install apache and php image
+  docker_image:
+    name: romeoz/docker-apache-php
+    state: present
+    source: pull
+
+- name: Install mysql-server image
+  docker_image:
+    name: mysql/mysql-server:latest
+    state: present
+    source: pull
+# Pulling LAMP stack

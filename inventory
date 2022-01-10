@@ -1,0 +1,2 @@
+[workstation]
+192.168.56.30 ansible_become_pass="{{ ubuntu_sudo_pass }}"

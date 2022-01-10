@@ -1,0 +1,50 @@
+---
+# tasks file for roles/ubuntu/LAMP/container
+
+# Creating docker directory and copying Dockerfiles <START>
+- name: Creating Build Directory
+  file:
+    path: "/home/atoraja/TORAJA_CONTAINERIZATION2-/docker"
+    state: directory
+
+- name: Copying Dockerfile
+  copy:
+    src: "/home/atoraja/TORAJA_CONTAINERIZATION2-/Dockerfile"
+    dest: "/home/atoraja/TORAJA_CONTAINERIZATION2-/docker/Dockerfile"
+# Creating docker directory and copying Dockerfiles <END>
+
+# Creating Docker Container <START>
+- name: Building Container Imange
+  docker_image:
+    name: hoa5-2
+    tag: v1
+    path: "/home/atoraja/TORAJA_CONTAINERIZATION2-/docker"
+    state: build
+
+
+# Creating Docker Container <END>
+
+# Running the created Docker Container <START>
+- name: Running the Container
+  docker_container:
+    image: hoa5-2:v1
+    name: hoa5-2
+    state: started
+    ports:
+      - "8080:80"
+# Running the created Docker Container <END>
+
+# Running Pulled images <START>
+- name: Running Apache-PHP
+  docker_container:
+    image: romeoz/docker-apache-php:latest
+    name: romeoz
+    state: started
+
+- name: Running MySQL
+  docker_container:
+    image: mysql/mysql-server:latest
+    name: mysql
+    state: started
+# Running Pulled images <END>
+    
